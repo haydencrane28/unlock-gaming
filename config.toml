@@ -1,5 +1,5 @@
 [github]
-token = ""
+token = "${GITHUB_TOKEN}"
 username = "haydencrane28"
 
 [leetcode]
