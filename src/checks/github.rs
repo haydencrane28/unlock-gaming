@@ -1,7 +1,7 @@
 use serde::{Deserialize};
-use chrono::{DateTime, Local};
+use chrono::{Local};
 
-#[derive(Deserialize)]
+#[derive(Debug, Deserialize)]
 struct GitHubEvent {
     #[serde(rename="type")]
     event_type: String,
@@ -14,18 +14,20 @@ pub async fn request_from_github(username: &str, token: &str) -> bool {
     let dt = Local::now().format("%Y-%m-%d");
 
     let client = reqwest::Client::new();    
-    let response = client.get(url).header("Authorization", format!("token {}", token).header("User-Agent", "unlock-gaming").send().await;
+    let response = client.get(url).header("Authorization", format!("token {}", token)).header("User-Agent", "unlock-gaming").send().await;
 
     match response {
-        Err(e) => {
-            println!("Failed to get a response.")
-            return false;
+        Err(_) => {
+            println!("Failed to get a response.");
+            false
         }
         Ok(value) => {
             let result: Vec<GitHubEvent> = value.json().await.unwrap_or_default();
-            result.iter().any(event.event_type == "PushEvent" && event.created_at.starts_with(&dt.to_string()))
+
+            result.iter().any(|event| {
+                event.event_type == "PushEvent" 
+                && event.created_at.starts_with(&dt.to_string())
+            })
         }
     }
-
-
 }
