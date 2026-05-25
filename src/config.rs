@@ -5,6 +5,7 @@ pub struct Config {
     pub github: GithubConfig,
     pub leetcode: LeetcodeConfig,
     pub unlock: UnlockConfig,
+    pub firewall: FirewallConfig,
 }
 
 #[derive(Deserialize)]
@@ -22,6 +23,12 @@ pub struct LeetcodeConfig {
 #[derive(Deserialize)]
 pub struct UnlockConfig {
     pub duration_minutes: i32,
+}
+
+#[derive(Deserialize)]
+pub struct FirewallConfig {
+    pub tcp_ports: Vec<u16>,
+    pub udp_ports: Vec<u16>,
 }
 
 pub fn load_config() -> Config {
