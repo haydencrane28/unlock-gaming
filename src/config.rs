@@ -22,7 +22,7 @@ pub struct LeetcodeConfig {
 
 #[derive(Deserialize)]
 pub struct UnlockConfig {
-    pub duration_minutes: i32,
+    pub duration_minutes: u64,
 }
 
 #[derive(Deserialize)]

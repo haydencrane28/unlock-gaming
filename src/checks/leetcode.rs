@@ -3,7 +3,6 @@ use chrono::{Local, DateTime};
 
 #[derive(Debug, Deserialize)]
 struct LeetCodeEvent {
-    title: String,
     timestamp: String,
 }
 
