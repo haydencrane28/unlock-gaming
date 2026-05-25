@@ -7,7 +7,9 @@ use std::{thread, time::Duration};
 
 #[tokio::main]
 async fn main() {
-    dotenv::dotenv().ok();
+    dotenv::from_path(
+        format!("{}/.config/unlock-gaming/.env", std::env::var("HOME").unwrap())
+    ).ok();
     let config = load_config();
 
     let github_result = checks::github::request_from_github(

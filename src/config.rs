@@ -32,8 +32,9 @@ pub struct FirewallConfig {
 }
 
 pub fn load_config() -> Config {
-    let content = std::fs::read_to_string("config.toml").expect("Could not find config.toml");
-    let mut config: Config = toml::from_str(&content).expect("config.toml is not formatted correctly");
+    let home = std::env::var("HOME").expect("Could not find HOME directory");
+    let config_path = format!("{}/.config/unlock-gaming/config.toml", home);
+    let content = std::fs::read_to_string(config_path).expect("Could not find config.toml");    let mut config: Config = toml::from_str(&content).expect("config.toml is not formatted correctly");
     config.github.token = std::env::var("GITHUB_TOKEN").expect("GITHUB_TOKEN is not set");
     config
 }
